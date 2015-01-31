@@ -19,8 +19,10 @@ func Get() (host string, domain string, full string, err error) {
 		full = host + "." + domain
 	} else {
 		full, err = resolveNetFullname(host)
-		full = removeTrailingDot(full)
-		host, domain = split2(full, '.')
+		if err != nil {
+			full = removeTrailingDot(full)
+			host, domain = split2(full, '.')
+		}
 	}
 	return
 }
